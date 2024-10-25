@@ -48,7 +48,3 @@ vis_meldinger(meldinger)
 print("Henter meldinger som inneholder ordet 'Kø':")
 meldinger = hent_meldinger('Kø')
 vis_meldinger(meldinger)
-
-print("Henter meldinger som inneholder ordet 'Veiarbeid':")
-meldinger = hent_meldinger('Veiarbeid')
-vis_meldinger(meldinger)
