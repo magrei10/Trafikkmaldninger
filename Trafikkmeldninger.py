@@ -43,8 +43,34 @@ print("Henter meldinger fra Bergen med alvorlighetsgrad 'høy':")
 meldinger = hent_meldinger(by='Bergen', alvorlighetsgrad='høy')
 vis_meldinger(meldinger)
 
+def fjern_meldinger(*args, **kwargs):
+    global trafikkmeldinger  # For å kunne endre den globale listen
+    nye_meldinger = []
+    
+    for melding in trafikkmeldinger:
+        passer = True
+        for ord in args:
+            if ord not in melding['beskrivelse']:
+                passer = False
+                break
+        
+        for key, value in kwargs.items():
+            if melding.get(key) != value:
+                passer = False
+                break
+                
+        # Hvis meldingen ikke passer, beholder vi den i listen
+        if not passer:
+            nye_meldinger.append(melding)
+    
+    trafikkmeldinger = nye_meldinger  # Oppdaterer listen uten de fjernede meldingene
+
+# Test av fjern_meldinger-funksjonen
+print("Fjerner meldinger fra Oslo med alvorlighetsgrad 'høy':")
+fjern_meldinger(alvorlighetsgrad='høy', by='Oslo')
 
 
 print("Henter meldinger som inneholder ordet 'Kø':")
 meldinger = hent_meldinger('Kø')
 vis_meldinger(meldinger)
+vis_meldinger(trafikkmeldinger)  # Skal vise listen uten meldingene som ble fjernet
